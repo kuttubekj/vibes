@@ -22,18 +22,28 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
   );
 };
 
+const bottomNavMap: Record<string, number> = {
+  "/": 0,
+  "/chat": 1,
+  "/map": 2,
+};
+
 const BottomNavigation = () => {
+  const { pathname } = useRouter();
+
+  const activeIndex = bottomNavMap[pathname];
+
   return (
     <div className="btm-nav bg-base-200">
-      <Link href="/">
+      <Link href="/" className={activeIndex === 0 ? "active bg-secondary" : ""}>
         <HomeIcon className="h-5 w-5" />
         <span className="btm-nav-label">Home</span>
       </Link>
-      <Link href="/chat" className="active bg-secondary">
+      <Link href="/chat" className={activeIndex === 1 ? "active bg-secondary" : ""}>
         <ChatBubbleLeftIcon className="h-5 w-5" />
         <span className="btm-nav-label">Chat</span>
       </Link>
-      <Link href="/map">
+      <Link href="/map" className={activeIndex === 2 ? "active bg-secondary" : ""}>
         <MapPinIcon className="h-5 w-5" />
         <span className="btm-nav-label">Map</span>
       </Link>
